@@ -1,0 +1,14 @@
+﻿<ExtensionModel>
+    <Runtime>
+        <Import assembly="MonoDevelop.CakeTaskRunner.dll" />
+        <Import file="INIFileParser.dll" />
+    </Runtime>
+
+    <Extension path="/MonoDevelop/Ide/Composition">
+        <Assembly file="MonoDevelop.CakeTaskRunner.dll" />
+    </Extension>
+
+    <Extension path="/MonoDevelop/Core/StockIcons">
+        <StockIcon stockid="md-cake-task-runner" resource="CakeFile.png" size="Menu" />
+    </Extension>
+</ExtensionModel>

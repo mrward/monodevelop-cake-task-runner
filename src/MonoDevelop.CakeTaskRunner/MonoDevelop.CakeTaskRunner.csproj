@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="MonoDevelop.References.proj" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B0E7C621-C910-48E2-A786-C89C044F6C4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MonoDevelop.CakeTaskRunner</RootNamespace>
+    <AssemblyName>MonoDevelop.CakeTaskRunner</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="MonoDevelop.TaskRunner">
+      <HintPath>..\..\..\monodevelop-task-runner-addin\bin\MonoDevelop.TaskRunner.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AddinInfo.cs" />
+    <Compile Include="Cake.VisualStudio.TaskRunner\TaskRunner.cs" />
+    <Compile Include="Cake.VisualStudio.TaskRunner\ScriptContent.cs" />
+    <Compile Include="Cake.VisualStudio.TaskRunner\TaskParser.cs" />
+    <Compile Include="Cake.VisualStudio.TaskRunner\TaskRunnerConfig.cs" />
+    <Compile Include="Cake.VisualStudio.TaskRunner\TaskRunnerOption.cs" />
+    <Compile Include="Cake.VisualStudio.Helpers\Constants.cs" />
+    <Compile Include="Cake.VisualStudio.Helpers\Logger.cs" />
+    <Compile Include="Cake.VisualStudio.Helpers\PathHelpers.cs" />
+    <Compile Include="Cake.VisualStudio.Configuration\ConfigurationParser.cs" />
+    <Compile Include="Cake.VisualStudio.Configuration\BindingParser.cs" />
+    <Compile Include="Cake.VisualStudio.Configuration\ConfigurationExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\MonoDevelop.CakeTaskRunner.addin.xml" />
+    <EmbeddedResource Include="Resources\CakeFile.png">
+      <LogicalName>CakeFile.png</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ini-parser" Version="2.3.0" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
