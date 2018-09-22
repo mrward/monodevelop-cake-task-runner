@@ -67,13 +67,18 @@ namespace Cake.VisualStudio.TaskRunner
 
         private ITaskRunnerNode NotFoundNode(string configPath)
         {
+            var root = new TaskRunnerNode("Cake");
+
             var message = GettextCatalog.GetString("Could not find Cake.exe in local folder or in PATH");
+            Logger.Log(message);
             //CakePackage.Dte.ShowStatusBarText(message);
-            return new TaskRunnerNode(GettextCatalog.GetString("Cake.exe not found"), true)
+            var node = new TaskRunnerNode(GettextCatalog.GetString("Cake.exe not found"), true)
             {
                 Description = message,
                 Command = new TaskRunnerCommand(Path.GetDirectoryName(configPath), "echo", message),
             };
+
+            root.Children.Add(node);
             /*
              * return new TaskRunnerNode("Cake")
             {
@@ -87,6 +92,7 @@ namespace Cake.VisualStudio.TaskRunner
                 }
             };
             */
+            return root;
         }
 
         private ITaskRunnerNode LoadHierarchy (string configPath)
