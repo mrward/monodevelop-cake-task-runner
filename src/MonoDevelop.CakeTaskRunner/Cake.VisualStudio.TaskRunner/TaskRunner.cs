@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Cake.VisualStudio.Helpers;
 using Microsoft.VisualStudio.TaskRunnerExplorer;
 using MonoDevelop.Core;
+using MonoDevelop.Core.Assemblies;
 
 namespace Cake.VisualStudio.TaskRunner
 {
@@ -109,7 +110,7 @@ namespace Cake.VisualStudio.TaskRunner
                 tasks.Select(
                     t =>
                         CreateTask(cwd, t.Key, $"Runs {configFileName} with the \"{t.Key}\" target",
-                            buildDev.Command.Args + $" {t.Value}"));
+                            configFileName + $" {t.Value}"));
             var nodes = commands as IList<TaskRunnerNode> ?? commands.ToList();
             buildDev.Children.AddRange(nodes);
             root.Children.Add(buildDev);
@@ -132,9 +133,20 @@ namespace Cake.VisualStudio.TaskRunner
 
         private ITaskRunnerCommand GetCommand(string cwd, string arguments)
         {
-            ITaskRunnerCommand command = new TaskRunnerCommand(cwd, _executablePath, arguments);
+            if (Platform.IsWindows)
+            {
+                ITaskRunnerCommand command = new TaskRunnerCommand(cwd, _executablePath, arguments);
+                return command;
+            }
+            else
+            {
+                var monoRuntime = Runtime.SystemAssemblyService.DefaultRuntime as MonoTargetRuntime;
+                string monoPath = Path.Combine (monoRuntime.MonoRuntimeInfo.Prefix, "bin", "mono");
 
-            return command;
+                arguments = "\"" + _executablePath + "\" " + arguments;
+                ITaskRunnerCommand command = new TaskRunnerCommand (cwd, monoPath, arguments);
+                return command;
+            }
         }
 
         private static string GetCakePath(string cwd)
