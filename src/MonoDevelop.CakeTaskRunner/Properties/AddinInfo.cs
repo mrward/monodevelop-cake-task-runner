@@ -35,7 +35,7 @@ using Mono.Addins;
 [assembly: AddinName ("Cake Task Runner")]
 [assembly: AddinDescription ("Adds a Task Runner for Cake.")]
 
-[assembly: AddinDependency ("Core", "7.5")]
-[assembly: AddinDependency ("Ide", "7.5")]
+[assembly: AddinDependency ("Core", "8.0")]
+[assembly: AddinDependency ("Ide", "8.0")]
 [assembly: AddinDependency ("TaskRunner", "0.1")]
 
